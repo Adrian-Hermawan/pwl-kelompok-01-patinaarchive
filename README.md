@@ -7,7 +7,7 @@ Proyek Pemrograman Web Lanjut - Kelompok 01 - 2026/2027
 | Adrian   | Koordinator & Backend  | hermawanadrian686@gmail.com |
 | Fauzy    | FrontEnd               | jiodisini@gmail.com         |
 | Nathania | DataBase               | nathaniaokkef@gmail.com     |
-|          |                        |                             |
+| Aghiva   | dokumentasi            | aghivasilvia@gmail.com      |
 
 ## Cara Instalasi
 Petunjuk instalasi akan dilengkapi setelah struktur proyek Laravel selesai di integrasikan
