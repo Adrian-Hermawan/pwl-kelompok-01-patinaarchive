@@ -6,7 +6,7 @@ Proyek Pemrograman Web Lanjut - Kelompok 01 - 2026/2027
 |----------|------------------------|-----------------------------|
 | Adrian   | Koordinator & Backend  | hermawanadrian686@gmail.com |
 | Fauzy    | FrontEnd               | jiodisini@gmail.com         |
-|          |                        |                             |
+| Nathania | DataBase               | nathaniaokkef@gmail.com     |
 |          |                        |                             |
 
 ## Cara Instalasi
