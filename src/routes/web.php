@@ -29,6 +29,9 @@ Route::get('/cek-status', [CekStatusController::class, 'index'])
 Route::get('/login-admin', [LoginAdminController::class, 'index'])
     ->name('login-admin');
 
+Route::post('/login-admin', [LoginAdminController::class, 'authenticate'])
+    ->name('login-admin.authenticate');
+
 // Route halaman login operator
 Route::get('/login-operator', [LoginOperatorController::class, 'index'])
     ->name('login-operator');

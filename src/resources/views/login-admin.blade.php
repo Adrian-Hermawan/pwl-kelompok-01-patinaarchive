@@ -84,18 +84,21 @@
                 </div>
 
                 <!-- FORM LOGIN -->
-                <form action="#" method="POST" class="space-y-5">
+                <form action="{{ route('login-admin.authenticate') }}" method="POST" class="space-y-5">
 
                     @csrf
 
                     <div class="space-y-1.5">
-                        <label for="username" class="block text-xs font-medium text-slate-700">
-                            Nama pengguna
+                        <label for="email" class="block text-xs font-medium text-slate-700">
+                            Email
                         </label>
 
-                        <input type="text" id="username" name="username"
-                            value="admin.patina" required
+                        <input type="email" id="email" name="email"
+                            value="{{ old('email') }}" autocomplete="username" required
                             class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0B132B] focus:bg-white transition">
+                        @error('email')
+                            <p class="text-xs text-rose-600" role="alert">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div class="space-y-1.5">
@@ -104,8 +107,11 @@
                         </label>
 
                         <input type="password" id="password" name="password"
-                            placeholder="••••••••" required
+                            placeholder="••••••••" autocomplete="current-password" required
                             class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0B132B] focus:bg-white transition">
+                        @error('password')
+                            <p class="text-xs text-rose-600" role="alert">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <button type="submit"
