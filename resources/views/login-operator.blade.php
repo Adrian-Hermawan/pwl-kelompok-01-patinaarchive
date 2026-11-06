@@ -74,18 +74,25 @@
                     </h2>
                 </div>
 
+                @if ($errors->any())
+                    <div class="p-3 bg-red-50 border border-red-200 rounded-xl text-sm text-red-700">
+                        {{ $errors->first() }}
+                    </div>
+                @endif
+
                 <!-- FORM LOGIN -->
-                <form action="#" method="POST" class="space-y-5">
+                <form action="{{ route('login-operator.store') }}" method="POST" class="space-y-5">
 
                     @csrf
 
                     <div class="space-y-1.5">
-                        <label for="username" class="block text-xs font-medium text-slate-700">
-                            Nama pengguna
+                        <label for="email" class="block text-xs font-medium text-slate-700">
+                            Email
                         </label>
 
-                        <input type="text" id="username" name="username"
-                            value="operator.patina" required
+                        <input type="email" id="email" name="email"
+                            value="{{ old('email', 'operator@patinaarchive.com') }}"
+                            required
                             class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0B132B] focus:bg-white transition">
                     </div>
 

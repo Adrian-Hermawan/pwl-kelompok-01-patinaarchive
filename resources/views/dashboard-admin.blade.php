@@ -117,10 +117,14 @@
         </div>
 
         <!-- KELUAR -->
-        <a href="{{ route('login-admin') }}"
-            class="block w-full py-4 text-center border border-slate-200/80 hover:bg-slate-50 text-slate-900 font-medium rounded-2xl transition text-sm shadow-sm">
-            Keluar
-        </a>
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+
+            <button type="submit"
+                class="block w-full py-4 text-center border border-rose-200/80 bg-rose-50 hover:bg-rose-100 text-rose-600 font-medium rounded-2xl transition text-sm shadow-sm">
+                Keluar
+            </button>
+        </form>
 
     </div>
 
