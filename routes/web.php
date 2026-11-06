@@ -9,6 +9,8 @@ use App\Http\Controllers\DashboardAdminController;
 use App\Http\Controllers\KelolaAntreanController;
 use App\Http\Controllers\LaporanPendapatanController;
 use App\Http\Controllers\TugasCuciController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return view('home');
@@ -33,18 +35,43 @@ Route::get('/login-admin', [LoginAdminController::class, 'index'])
 Route::get('/login-operator', [LoginOperatorController::class, 'index'])
     ->name('login-operator');
 
-// Route halaman dashboard admin
-Route::get('/dashboard-admin', [DashboardAdminController::class, 'index'])
-    ->name('dashboard-admin');
+Route::post('/logout', function (Request $request) {
+    Auth::logout();
 
-// Route halaman kelola antrean
-Route::get('/kelola-antrean-admin', [KelolaAntreanController::class, 'index'])
-    ->name('kelola-antrean-admin');
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
 
-// Route halaman laporan pendapatan
-Route::get('/laporan-pendapatan-admin', [LaporanPendapatanController::class, 'index'])
-    ->name('laporan-pendapatan-admin');
+    return redirect()->route('home');
+})->middleware('auth')->name('logout');
 
-// Route halaman tugas cuci
-Route::get('/tugas-cuci-operator', [TugasCuciController::class, 'index'])
-    ->name('tugas-cuci-operator');
+// Proses halaman login admin
+Route::post('/login-admin', [LoginAdminController::class, 'authenticate'])
+    ->middleware('throttle:5,1') // Batasi percobaan login menjadi 5 kali per menit
+    ->name('login-admin.store');
+
+// Proses halaman login operator
+Route::post('/login-operator', [LoginOperatorController::class, 'authenticate'])
+    ->middleware('throttle:5,1') // Batasi percobaan login menjadi 5 kali per menit
+    ->name('login-operator.store');
+
+// Route khusus Admin
+Route::middleware(['auth', 'role:admin'])->group(function () {
+
+    Route::get('/dashboard-admin', [DashboardAdminController::class, 'index'])
+        ->name('dashboard-admin');
+
+    Route::get('/kelola-antrean-admin', [KelolaAntreanController::class, 'index'])
+        ->name('kelola-antrean-admin');
+
+    Route::get('/laporan-pendapatan-admin', [LaporanPendapatanController::class, 'index'])
+        ->name('laporan-pendapatan-admin');
+
+});
+
+// Route khusus Operator
+Route::middleware(['auth', 'role:operator'])->group(function () {
+
+    Route::get('/tugas-cuci-operator', [TugasCuciController::class, 'index'])
+        ->name('tugas-cuci-operator');
+
+});

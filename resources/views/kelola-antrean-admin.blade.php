@@ -71,10 +71,14 @@
                 </div>
             </div>
 
-            <a href="{{ route('login-admin') }}"
-                class="block w-full py-2.5 text-center text-rose-600 bg-rose-50 hover:bg-rose-100 font-medium rounded-xl transition text-xs">
-                Keluar
-            </a>
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+
+                <button type="submit"
+                    class="block w-full py-2.5 text-center text-rose-600 bg-rose-50 hover:bg-rose-100 font-medium rounded-xl transition text-xs">
+                    Keluar
+                </button>
+            </form>
         </div>
 
     </aside>

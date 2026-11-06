@@ -73,10 +73,14 @@
                 </div>
             </div>
 
-            <a href="{{ route('login-operator') }}"
-                class="block w-full py-4 text-center border border-slate-200/90 hover:bg-slate-50 text-slate-900 font-medium rounded-2xl transition text-sm shadow-sm">
-                Keluar
-            </a>
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+
+                <button type="submit"
+                    class="block w-full py-2.5 text-center text-rose-600 bg-rose-50 hover:bg-rose-100 font-medium rounded-xl transition text-xs">
+                    Keluar
+                </button>
+            </form>
         </div>
 
     </aside>
