@@ -11,6 +11,7 @@ use App\Http\Controllers\LaporanPendapatanController;
 use App\Http\Controllers\TugasCuciController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Admin\LayananController;
 
 Route::get('/', function () {
     return view('home');
@@ -65,6 +66,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('/laporan-pendapatan-admin', [LaporanPendapatanController::class, 'index'])
         ->name('laporan-pendapatan-admin');
+
+    Route::resource('layanan', LayananController::class)->except(['show']);
 
 });
 

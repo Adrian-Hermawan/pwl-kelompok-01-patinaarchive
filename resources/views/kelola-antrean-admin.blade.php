@@ -52,6 +52,11 @@
                     Kelola Antrean
                 </a>
 
+                <a href="{{ route('layanan.index') }}"
+                    class="flex items-center px-4 py-3 text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-medium rounded-2xl transition text-sm">
+                    Kelola Layanan
+                </a>
+
                 <a href="{{ url('/laporan-pendapatan-admin') }}"
                     class="flex items-center px-4 py-3 text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-medium rounded-2xl transition text-sm">
                     Laporan Pendapatan
@@ -111,36 +116,64 @@
         <!-- STATISTIK -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
 
+            <!-- TOTAL ANTREAN AKTIF -->
             <div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm">
                 <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">
                     Total Antrean Aktif
                 </p>
-                <h3 class="text-3xl font-extrabold text-slate-900">24</h3>
-                <p class="text-xs text-slate-400 mt-2">+4 dari kemarin</p>
+
+                <h3 class="text-3xl font-extrabold text-slate-900">
+                    {{ $totalAntreanAktif }}
+                </h3>
+
+                <p class="text-xs text-slate-400 mt-2">
+                    Antrean yang masih aktif
+                </p>
             </div>
 
+            <!-- SEDANG DIKERJAKAN -->
             <div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm">
                 <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">
                     Sedang Dikerjakan
                 </p>
-                <h3 class="text-3xl font-extrabold text-slate-900">8</h3>
-                <p class="text-xs text-slate-400 mt-2">33% dari antrean aktif</p>
+
+                <h3 class="text-3xl font-extrabold text-slate-900">
+                    {{ $totalDikerjakan }}
+                </h3>
+
+                <p class="text-xs text-slate-400 mt-2">
+                    Antrean dalam proses pengerjaan
+                </p>
             </div>
 
+            <!-- SIAP DIAMBIL -->
             <div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm">
                 <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">
                     Siap Diambil
                 </p>
-                <h3 class="text-3xl font-extrabold text-slate-900">6</h3>
-                <p class="text-xs text-slate-400 mt-2">Perlu konfirmasi pelanggan</p>
+
+                <h3 class="text-3xl font-extrabold text-slate-900">
+                    {{ $totalSiapDiambil }}
+                </h3>
+
+                <p class="text-xs text-slate-400 mt-2">
+                    Menunggu pengambilan pelanggan
+                </p>
             </div>
 
+            <!-- PENDAPATAN HARI INI -->
             <div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm">
                 <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">
                     Pendapatan Hari Ini
                 </p>
-                <h3 class="text-3xl font-extrabold text-slate-900">Rp735.000</h3>
-                <p class="text-xs text-slate-400 mt-2">12 order selesai</p>
+
+                <h3 class="text-3xl font-extrabold text-slate-900">
+                    Rp{{ number_format($pendapatanHariIni, 0, ',', '.') }}
+                </h3>
+
+                <p class="text-xs text-slate-400 mt-2">
+                    {{ $totalSelesaiHariIni }} order selesai
+                </p>
             </div>
 
         </div>
@@ -182,44 +215,62 @@
                     </thead>
 
                     <tbody class="divide-y divide-slate-100">
-                        <tr>
-                            <td class="py-4 font-bold text-slate-900">CS-251008-014</td>
 
-                            <td class="py-4">
-                                <p class="font-bold text-slate-900">Nadia Putri</p>
-                                <p class="text-xs text-slate-400">Nike Air Force 1</p>
-                            </td>
+                        @forelse ($antreans as $antrean)
 
-                            <td class="py-4 font-medium text-slate-700">Premium</td>
+                            <tr class="hover:bg-slate-50/70 transition">
 
-                            <td class="py-4">
-                                <span class="px-3 py-1 bg-slate-100 text-slate-800 text-xs font-semibold rounded-full border border-slate-200">
-                                    Sedang dikerjakan
-                                </span>
-                            </td>
+                                <td class="py-4 font-bold text-slate-900">
+                                    {{ $antrean->kode_antrean }}
+                                </td>
 
-                            <td class="py-4 text-slate-600">Hari ini, 16.00</td>
+                                <td class="py-4">
+                                    <p class="font-bold text-slate-900">
+                                        {{ $antrean->nama_pelanggan }}
+                                    </p>
+                                    <p class="text-xs text-slate-400">
+                                        {{ $antrean->no_hp }}
+                                    </p>
+                                </td>
 
-                            <td class="py-4 text-right space-x-2">
-                                <button type="button"
-                                    onclick="openModal('CS-251008-014', 'Nadia Putri', 'Nike Air Force 1')"
-                                    class="px-4 py-1.5 bg-white border border-slate-200 text-slate-700 font-medium rounded-xl hover:bg-slate-50 transition text-xs">
-                                    Edit
-                                </button>
+                                <td class="py-4 font-medium text-slate-700">
+                                    {{ $antrean->layanan?->nama_layanan ?? '-' }}
+                                </td>
 
-                                <button type="button"
-                                    onclick="alert('Fitur hapus belum diaktifkan.')"
-                                    class="px-4 py-1.5 bg-white border border-rose-200 text-rose-600 font-medium rounded-xl hover:bg-rose-50 transition text-xs">
-                                    Hapus
-                                </button>
-                            </td>
-                        </tr>
+                                <td class="py-4">
+                                    <span class="px-3 py-1 bg-slate-100 text-slate-800 text-xs font-semibold rounded-full border border-slate-200">
+                                        {{ ucfirst(str_replace('_', ' ', $antrean->status)) }}
+                                    </span>
+                                </td>
+
+                                <td class="py-4 text-slate-600">
+                                    {{ $antrean->tanggal_masuk?->format('d/m/Y H:i') ?? '-' }}
+                                </td>
+
+                                <td class="py-4 text-right space-x-2">
+                                    <span class="text-xs text-slate-400">
+                                        CRUD menyusul
+                                    </span>
+                                </td>
+
+                            </tr>
+
+                        @empty
+
+                            <tr>
+                                <td colspan="6" class="py-12 text-center text-slate-400">
+                                    Belum ada data antrean.
+                                </td>
+                            </tr>
+
+                        @endforelse
+
                     </tbody>
                 </table>
             </div>
 
             <p class="text-xs text-slate-400 mt-4">
-                Data antrean di atas merupakan data simulasi.
+                Data antrean ditampilkan berdasarkan database Patina Archive.
             </p>
 
         </div>
