@@ -3,13 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Layanan;
+use App\Models\Antrean;
+use Illuminate\Support\Facades\DB;
 
 class PendaftaranController extends Controller
 {
     public function index()
     {
+        $layanans = Layanan::orderBy('nama_layanan')->get();
+
         return view('pendaftaran', [
-            'dataStruk' => null
+            'dataStruk' => null,
+            'layanans' => $layanans
         ]);
     }
 
@@ -19,40 +25,65 @@ class PendaftaranController extends Controller
             'nama' => 'required|string|max:100',
             'whatsapp' => 'required|string|max:20',
             'merek' => 'required|string|max:100',
-            'paket' => 'required|in:Deep Cleaning,Fast Cleaning,Unyellowing,Repaint',
+            'layanan_id' => 'required|exists:layanans,id',
             'catatan' => 'nullable|string|max:500',
         ]);
 
-        $layanan = [
-            'Deep Cleaning' => [
-                'harga' => 'Rp50.000',
-                'estimasi' => '2 - 3 Hari'
-            ],
-            'Fast Cleaning' => [
-                'harga' => 'Rp35.000',
-                'estimasi' => '1 Hari'
-            ],
-            'Unyellowing' => [
-                'harga' => 'Rp75.000',
-                'estimasi' => '3 - 4 Hari'
-            ],
-            'Repaint' => [
-                'harga' => 'Rp120.000',
-                'estimasi' => '4 - 5 Hari'
-            ],
-        ];
+        $antrean = DB::transaction(function () use ($validated) {
+
+            // Membuat data antrean terlebih dahulu
+            $antrean = Antrean::create([
+                'kode_antrean' => 'TEMP-' . uniqid(),
+                'nama_pelanggan' => $validated['nama'],
+                'no_hp' => $validated['whatsapp'],
+                'merek_sepatu' => $validated['merek'],
+                'catatan' => $validated['catatan'] ?? null,
+                'layanan_id' => $validated['layanan_id'],
+                'status' => 'menunggu',
+                'tanggal_masuk' => now(),
+            ]);
+
+            // Membuat nomor antrean berdasarkan tanggal dan ID database
+            $kodeAntrean = 'PA-' . now()->format('ymd') . '-' .
+                str_pad($antrean->id, 4, '0', STR_PAD_LEFT);
+
+            $antrean->update([
+                'kode_antrean' => $kodeAntrean
+            ]);
+
+            return $antrean;
+        });
+
+        $antrean->load('layanan');
+
+        $menit = $antrean->layanan->estimasi_waktu;
+
+        if ($menit >= 1440 && $menit % 1440 === 0) {
+            $estimasi = ($menit / 1440) . ' Hari';
+        } elseif ($menit >= 60 && $menit % 60 === 0) {
+            $estimasi = ($menit / 60) . ' Jam';
+        } else {
+            $estimasi = $menit . ' Menit';
+        }
 
         $dataStruk = [
-            'nama' => $validated['nama'],
-            'whatsapp' => $validated['whatsapp'],
-            'merek' => $validated['merek'],
-            'paket' => $validated['paket'],
-            'catatan' => $validated['catatan'] ?? 'Tidak ada catatan',
-            'harga' => $layanan[$validated['paket']]['harga'],
-            'estimasi' => $layanan[$validated['paket']]['estimasi'],
-            'resi' => 'CS-' . date('ymd') . '-' . rand(100, 999),
+            'nama' => $antrean->nama_pelanggan,
+            'whatsapp' => $antrean->no_hp,
+            'merek' => $antrean->merek_sepatu,
+            'paket' => $antrean->layanan->nama_layanan,
+            'catatan' => $antrean->catatan ?? 'Tidak ada catatan',
+            'harga' => 'Rp' . number_format(
+                $antrean->layanan->harga,
+                0,
+                ',',
+                '.'
+            ),
+            'estimasi' => $estimasi,
+            'resi' => $antrean->kode_antrean,
         ];
 
-        return view('pendaftaran', compact('dataStruk'));
+        $layanans = Layanan::orderBy('nama_layanan')->get();
+
+        return view('pendaftaran', compact('dataStruk', 'layanans'));
     }
 }

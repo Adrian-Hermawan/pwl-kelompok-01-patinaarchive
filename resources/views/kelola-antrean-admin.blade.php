@@ -180,6 +180,17 @@
 
         <!-- TABEL ANTREAN -->
         <div class="bg-white border border-slate-200/80 rounded-3xl p-6 md:p-8 shadow-sm">
+            @if (session('success'))
+                <div class="mb-4 p-4 bg-emerald-50 border border-emerald-200 text-emerald-700 rounded-xl text-sm">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if ($errors->any())
+                <div class="mb-4 p-4 bg-rose-50 border border-rose-200 text-rose-700 rounded-xl text-sm">
+                    {{ $errors->first() }}
+                </div>
+            @endif
 
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-slate-100">
                 <div>
@@ -202,7 +213,7 @@
             </div>
 
             <div class="overflow-x-auto">
-                <table class="w-full text-left text-sm">
+                <table class="w-full min-w-[1100px] text-left text-sm">
                     <thead>
                         <tr class="text-[11px] font-bold uppercase tracking-wider text-slate-400 border-b border-slate-100">
                             <th class="pb-3">No. Antrean</th>
@@ -210,7 +221,7 @@
                             <th class="pb-3">Layanan</th>
                             <th class="pb-3">Status</th>
                             <th class="pb-3">Estimasi</th>
-                            <th class="pb-3 text-right">Aksi</th>
+                            <th class="pb-3 text-right pl-4 min-w-[250px]">Aksi</th>
                         </tr>
                     </thead>
 
@@ -247,10 +258,42 @@
                                     {{ $antrean->tanggal_masuk?->format('d/m/Y H:i') ?? '-' }}
                                 </td>
 
-                                <td class="py-4 text-right space-x-2">
-                                    <span class="text-xs text-slate-400">
-                                        CRUD menyusul
-                                    </span>
+                                <td class="py-4 pl-4">
+                                    <form action="{{ route('antrean.update-status', $antrean->id) }}"
+                                        method="POST"
+                                        class="flex items-center justify-end gap-2 min-w-[250px]">
+                                        @csrf
+                                        @method('PATCH')
+
+                                        <select name="status"
+                                            class="flex-1 min-w-0 px-3 py-2.5 bg-white border border-slate-200 rounded-xl text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-slate-900 transition">
+
+                                            <option value="menunggu"
+                                                @selected($antrean->status === 'menunggu')>
+                                                Menunggu
+                                            </option>
+
+                                            <option value="sedang_dikerjakan"
+                                                @selected($antrean->status === 'sedang_dikerjakan')>
+                                                Sedang Dikerjakan
+                                            </option>
+
+                                            <option value="siap_diambil"
+                                                @selected($antrean->status === 'siap_diambil')>
+                                                Siap Diambil
+                                            </option>
+
+                                            <option value="selesai"
+                                                @selected($antrean->status === 'selesai')>
+                                                Selesai
+                                            </option>
+                                        </select>
+
+                                        <button type="submit"
+                                            class="shrink-0 px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-semibold transition">
+                                            Simpan
+                                        </button>
+                                    </form>
                                 </td>
 
                             </tr>

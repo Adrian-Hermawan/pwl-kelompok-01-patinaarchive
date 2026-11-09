@@ -75,6 +75,20 @@
                     Kelola Antrean
                 </a>
 
+                <!-- KELOLA LAYANAN -->
+                <a href="{{ route('layanan.index') }}"
+                    class="flex items-center gap-4 w-full px-6 py-4 text-slate-500 hover:bg-slate-50 hover:text-slate-900 font-medium rounded-2xl transition text-sm">
+
+                    <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none"
+                        stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M4 6h16M4 12h16M4 18h7">
+                        </path>
+                    </svg>
+
+                    Kelola Layanan
+                </a>
+
                 <!-- LAPORAN PENDAPATAN -->
                 <a href="{{ url('/laporan-pendapatan-admin') }}"
                     class="flex items-center gap-4 w-full px-6 py-4 text-slate-500 hover:bg-slate-50 hover:text-slate-900 font-medium rounded-2xl transition text-sm">

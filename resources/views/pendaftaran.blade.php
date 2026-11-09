@@ -84,27 +84,25 @@
                         <label class="block text-sm font-medium text-slate-900 mb-2">
                             Pilihan Layanan
                         </label>
-                        <select name="paket" required
+
+                        <select name="layanan_id" required
                             class="w-full px-4 py-3.5 bg-slate-50/50 border border-slate-200/80 rounded-2xl text-sm text-slate-500 focus:outline-none focus:bg-white focus:ring-2 focus:ring-slate-900 transition">
 
-                            <option value="" disabled {{ old('paket') ? '' : 'selected' }}>
+                            <option value="" disabled {{ old('layanan_id') ? '' : 'selected' }}>
                                 Pilih paket layanan
                             </option>
 
-                            <option value="Deep Cleaning" {{ old('paket') == 'Deep Cleaning' ? 'selected' : '' }}>
-                                Deep Cleaning
-                            </option>
-                            <option value="Fast Cleaning" {{ old('paket') == 'Fast Cleaning' ? 'selected' : '' }}>
-                                Fast Cleaning
-                            </option>
-                            <option value="Unyellowing" {{ old('paket') == 'Unyellowing' ? 'selected' : '' }}>
-                                Unyellowing
-                            </option>
-                            <option value="Repaint" {{ old('paket') == 'Repaint' ? 'selected' : '' }}>
-                                Repaint
-                            </option>
+                            @foreach ($layanans as $layanan)
+                                <option value="{{ $layanan->id }}"
+                                    {{ old('layanan_id') == $layanan->id ? 'selected' : '' }}>
+                                    {{ $layanan->nama_layanan }}
+                                    - Rp{{ number_format($layanan->harga, 0, ',', '.') }}
+                                </option>
+                            @endforeach
+
                         </select>
-                        @error('paket')
+
+                        @error('layanan_id')
                             <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
                         @enderror
                     </div>
@@ -114,10 +112,12 @@
                     <label class="block text-sm font-medium text-slate-900 mb-2">
                         Catatan (opsional)
                     </label>
+
                     <textarea name="catatan" rows="3"
                         placeholder="Contoh: noda utama di bagian midsole"
                         class="w-full px-4 py-3.5 bg-slate-50/50 border border-slate-200/80 rounded-2xl text-sm placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-slate-900 transition">{{ old('catatan') }}</textarea>
-                    @error('catatan')
+
+                        @error('catatan')
                         <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
                     @enderror
                 </div>
@@ -127,6 +127,7 @@
                         class="w-full py-4 bg-slate-900 text-white font-medium rounded-2xl shadow-sm hover:bg-slate-800 transition text-sm flex items-center justify-center gap-2">
                         Daftar Antrean Sekarang &rarr;
                     </button>
+
                     <p class="text-center text-xs text-slate-400 mt-3 font-normal">
                         Dengan mendaftar, kamu menyetujui estimasi waktu pengerjaan.
                     </p>

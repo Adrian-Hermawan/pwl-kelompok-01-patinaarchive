@@ -11,6 +11,8 @@ class Antrean extends Model
         'kode_antrean',
         'nama_pelanggan',
         'no_hp',
+        'merek_sepatu',
+        'catatan',
         'layanan_id',
         'user_id',
         'pelanggan_id',
@@ -18,6 +20,14 @@ class Antrean extends Model
         'tanggal_masuk',
         'tanggal_selesai',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'tanggal_masuk' => 'datetime',
+            'tanggal_selesai' => 'datetime',
+        ];
+    }
 
     public function layanan(): BelongsTo
     {
