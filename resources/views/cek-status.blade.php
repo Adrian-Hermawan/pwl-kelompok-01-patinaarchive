@@ -81,7 +81,7 @@
                             {{ $dataAntrean['sepatu'] }}
                         </p>
                         <p class="text-xs text-slate-400 mt-1">
-                            Warna {{ $dataAntrean['warna'] }}
+                            Warna {{ $dataAntrean['catatan'] }}
                         </p>
                     </div>
 
@@ -188,10 +188,6 @@
 
             </div>
         </div>
-
-        <p class="text-center text-xs text-slate-400 mt-4">
-            Data yang ditampilkan saat ini merupakan simulasi.
-        </p>
 
     @elseif ($resi)
 

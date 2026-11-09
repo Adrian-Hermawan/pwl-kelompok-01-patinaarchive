@@ -47,6 +47,11 @@
                         Kelola Antrean
                     </a>
 
+                    <a href="{{ route('layanan.index') }}"
+                    class="flex items-center px-4 py-3 text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-medium rounded-2xl transition text-sm">
+                    Kelola Layanan
+                </a>
+
                     <a href="{{ route('laporan-pendapatan-admin') }}"
                         class="flex items-center gap-3 px-4 py-3 bg-slate-950 text-white rounded-xl">
                         Laporan Pendapatan

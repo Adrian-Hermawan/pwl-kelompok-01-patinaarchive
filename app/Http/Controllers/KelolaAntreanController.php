@@ -61,4 +61,30 @@ class KelolaAntreanController extends Controller
             'totalSelesaiHariIni'
         ));
     }
+
+    public function updateStatus(Request $request, Antrean $antrean)
+    {
+        $validated = $request->validate([
+            'status' => [
+                'required',
+                'in:menunggu,sedang_dikerjakan,siap_diambil,selesai',
+            ],
+        ]);
+
+        $dataUpdate = [
+            'status' => $validated['status'],
+        ];
+
+        if ($validated['status'] === 'selesai') {
+            $dataUpdate['tanggal_selesai'] = now();
+        } else {
+            $dataUpdate['tanggal_selesai'] = null;
+        }
+
+        $antrean->update($dataUpdate);
+
+        return redirect()
+            ->route('kelola-antrean-admin')
+            ->with('success', 'Status antrean berhasil diperbarui.');
+    }
 }

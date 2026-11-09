@@ -69,6 +69,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::resource('layanan', LayananController::class)->except(['show']);
 
+    Route::patch('/kelola-antrean-admin/{antrean}/status', [KelolaAntreanController::class, 'updateStatus'])
+    ->name('antrean.update-status');
+
 });
 
 // Route khusus Operator
