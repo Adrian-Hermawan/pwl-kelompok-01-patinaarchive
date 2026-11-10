@@ -41,7 +41,7 @@ Admin dan operator dapat masuk ke sistem untuk mengelola proses operasional sesu
 - Membantu proses pengelolaan status pengerjaan sesuai izin sistem.
 
 ### API
-- GET /api/layanans untuk mengambil daftar layanan dalam format JSON.
+- GET `/api/layanans` untuk mengambil daftar layanan dalam format JSON.
 
 ## Teknologi yang Digunakan
 
@@ -66,66 +66,70 @@ Admin dan operator dapat masuk ke sistem untuk mengelola proses operasional sesu
 
 ### 1. Clone repository
 
-bash
+```bash
 git clone https://github.com/Adrian-Hermawan/pwl-kelompok-01-patinaarchive.git
+```
+
 Masuk ke direktori project:
 
-bash
+```bash
 cd pwl-kelompok-01-patinaarchive
+```
 
 ### 2. Instal dependency
 
-bash
+```bash
 composer install
+```
 
 ### 3. Buat file environment
 
-Salin .env.example menjadi .env, kemudian sesuaikan konfigurasi database.
+Salin `.env.example` menjadi `.env`, kemudian sesuaikan konfigurasi database.
 
-env
+```env
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=patina_archive
 DB_USERNAME=root
 DB_PASSWORD=
-
+```
 
 Sesuaikan username dan password database dengan konfigurasi lokal.
 
 ### 4. Buat application key
 
-bash
+```bash
 php artisan key:generate
-
+```
 
 ### 5. Buat database
 
 Buat database dengan nama:
 
-patina_archive
+`patina_archive`
 
 ### 6. Jalankan migration dan seeder
+
 Untuk instalasi database baru:
 
-bash
+```bash
 php artisan migrate --seed
+```
 
 Perintah ini membuat tabel dan mengisi data awal aplikasi, termasuk akun demo dan data layanan.
 
-**Catatan:** Jangan menjalankan 
-migrate:fresh --seed 
-pada database yang sudah berisi data penting karena perintah tersebut menghapus tabel terlebih dahulu.
+**Catatan:** Jangan menjalankan `migrate:fresh --seed` pada database yang sudah berisi data penting karena perintah tersebut menghapus tabel terlebih dahulu.
 
 ### 7. Jalankan aplikasi
 
-bash
+```bash
 php artisan serve
-
+```
 
 Buka browser:
 
-http://127.0.0.1:8000
+`http://127.0.0.1:8000`
 
 ## Akun Demo
 
@@ -142,26 +146,26 @@ Akun tersebut merupakan akun demo yang dibuat melalui Database Seeder.
 
 | Method | Endpoint | Keterangan |
 |---|---|---|
-| GET | /api/layanans | Mengambil daftar layanan |
+| GET | `/api/layanans` | Mengambil daftar layanan |
 
 Contoh URL:
 
-http://127.0.0.1:8000/api/layanans
+`http://127.0.0.1:8000/api/layanans`
 
 Pengujian API dilakukan menggunakan Postman.
 
-Dokumentasi API dan hasil pengujian dapat dilihat pada folder docs.
+Dokumentasi API dan hasil pengujian dapat dilihat pada folder `docs`.
 
 ## Struktur Dokumentasi
 
-text
+```text
 docs/
 ├── erd.md
 ├── api.md
 ├── uji-api.md
 └── postman/
     └── Patina-Archive.postman_collection.json
-
+```
 
 ## Pengembang
 
@@ -172,13 +176,3 @@ Nama anggota kelompok dan pembagian tugas dapat ditambahkan di bagian ini.
 ## Lisensi
 
 Project ini dikembangkan untuk keperluan pembelajaran dan tugas akademik.
-## Alur Kerja Git Tim
-1. Ambil perubahan terbaru dari branch main.
-2. Buat branch untuk setiap fitur atau tugas menggunakan awalan feature/, fix/, atau docs/.
-3. Kerjakan perubahan pada branch masing-masing.
-4. Periksa perubahan menggunakan git status dan git diff.
-5. Commit dengan pesan yang jelas dan bermakna.
-6. Push branch ke GitHub.
-7. Buat Pull Request menuju main.
-8. Minta minimal satu anggota melakukan review.
-9. Merge setelah perubahan disetujui dan diuji.
