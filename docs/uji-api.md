@@ -28,19 +28,18 @@ Pengujian dilakukan untuk memastikan endpoint API Patina Archive dapat mengambil
 | No. | Skenario | Hasil Aktual | Status |
 |---|---|---|---|
 | 1 | Mengambil seluruh layanan | Response JSON berhasil diterima dengan HTTP 200 OK | Berhasil |
-| 2 | Mencari layanan | Perlu pengujian dan dokumentasi hasil aktual | Belum diverifikasi |
-| 3 | Pagination | Perlu pengujian dan dokumentasi hasil aktual | Belum diverifikasi |
+| 2 | Mencari layanan | Response JSON berhasil diterima dengan HTTP 200 OK | Berhasil |
+| 3 | Pagination | Response JSON berhasil diterima dengan HTTP 200 OK | Berhasil |
 
 ## 5. Bukti Pengujian
 
-Masukkan screenshot Postman pada bagian ini.
+<img width="959" height="502" alt="Screenshot 2026-11-10 013357" src="https://github.com/user-attachments/assets/9cbe5403-43b0-4747-83ff-834aa9fd8c07" />
 
-Screenshot harus memperlihatkan:
-- Method GET.
-- URL `http://127.0.0.1:8000/api/layanans`.
-- HTTP status `200 OK`.
-- Response JSON yang menampilkan data layanan.
+<img width="958" height="502" alt="Screenshot 2026-11-11 215513" src="https://github.com/user-attachments/assets/fcd8d3a3-0986-4306-979b-4ad9dfd88269" />
+
+<img width="959" height="502" alt="Screenshot 2026-11-11 215533" src="https://github.com/user-attachments/assets/5d03ec6a-4386-41d0-b669-47b87f5fa719" />
+
 
 ## 6. Kesimpulan
 
-Berdasarkan pengujian awal menggunakan Postman, endpoint GET `/api/layanans` berhasil dijalankan. API dapat mengambil data layanan dari database MySQL dan menampilkannya dalam format JSON dengan HTTP status 200 OK.
+Berdasarkan pengujian awal menggunakan Postman, endpoint GET `/api/layanans`, GET `/api/layanans?q=Deep`, dan GET `/api/layanans?per_page=2` berhasil dijalankan. API dapat mengambil data layanan dari database MySQL dan menampilkannya dalam format JSON dengan HTTP status 200 OK.
