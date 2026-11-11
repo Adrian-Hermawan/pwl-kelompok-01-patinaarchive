@@ -4,10 +4,10 @@ Proyek Pemrograman Web Lanjut - Kelompok 01 - 2026/2027
 ## Anggota & Peran
 | Nama     | Peran                  | Akun GitHub                 |
 |----------|------------------------|-----------------------------|
-| Adrian   | Koordinator & Backend  | hermawanadrian686@gmail.com |
-| Fauzy    | FrontEnd               | jiodisini@gmail.com         |
-| Nathania | DataBase               | nathaniaokkef@gmail.com     |
-| Aghiva   | dokumentasi            | aghivasilvia@gmail.com      |
+| Adrian   | Backend  | hermawanadrian686@gmail.com |
+| Fauzy    | Koordinator & FrontEnd | jiodisini@gmail.com |
+| Nathania | Database               | nathaniaokkef@gmail.com     |
+| Aghiva   | Dokumentasi            | aghivasilvia@gmail.com      |
 
 # PATINA ARCHIVE
 
@@ -163,16 +163,4 @@ docs/
 ├── erd.md
 ├── api.md
 ├── uji-api.md
-└── postman/
-    └── Patina-Archive.postman_collection.json
 ```
-
-## Pengembang
-
-Project ini dikembangkan secara berkelompok untuk memenuhi tugas Ujian Tengah Semester mata kuliah Pemrograman Web.
-
-Nama anggota kelompok dan pembagian tugas dapat ditambahkan di bagian ini.
-
-## Lisensi
-
-Project ini dikembangkan untuk keperluan pembelajaran dan tugas akademik.
