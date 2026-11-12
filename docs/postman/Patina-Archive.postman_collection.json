@@ -1,0 +1,155 @@
+{
+  "info": {
+    "_postman_id": "4fab8c83-4ca4-4a23-aee4-c21f702915a3",
+    "name": "Patina Archive API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "59163160",
+    "_collection_link": "https://go.postman.co/collection/59163160-4fab8c83-4ca4-4a23-aee4-c21f702915a3?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Daftar Semua Layanan",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Response memiliki data\", function () {\r\n    const json = pm.response.json();\r\n    pm.expect(json.data).to.be.an(\"array\");\r\n});\r\n\r\npm.test(\"Struktur layanan benar\", function () {\r\n    const json = pm.response.json();\r\n\r\n    if (json.data.length > 0) {\r\n        pm.expect(json.data[0]).to.have.property(\"nama_layanan\");\r\n        pm.expect(json.data[0]).to.have.property(\"harga\");\r\n    }\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/layanans",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "layanans"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Cari Layanan Deep Cleaning",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Hasil pencarian sesuai\", function () {\r\n    const json = pm.response.json();\r\n\r\n    pm.expect(json.data.length).to.be.above(0);\r\n\r\n    json.data.forEach(item => {\r\n        pm.expect(item.nama_layanan.toLowerCase())\r\n            .to.include(\"deep\");\r\n    });\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/layanans?q=Deep",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "layanans"
+          ],
+          "query": [
+            {
+              "key": "q",
+              "value": "Deep"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Pagination 2 Data",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Maksimal 2 data\", function () {\r\n    const json = pm.response.json();\r\n    pm.expect(json.data.length).to.be.at.most(2);\r\n    pm.expect(json.meta.per_page).to.eql(2);\r\n});pm.test(\"Status 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Maksimal 2 data\", function () {\r\n    const json = pm.response.json();\r\n    pm.expect(json.data.length).to.be.at.most(2);\r\n    pm.expect(json.meta.per_page).to.eql(2);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/layanans?per_page=2",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "layanans"
+          ],
+          "query": [
+            {
+              "key": "per_page",
+              "value": "2"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": ""
+    }
+  ]
+}
